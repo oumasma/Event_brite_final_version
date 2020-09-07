@@ -1,0 +1,43 @@
+<!-- Navbar
+    ================================================== -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+   <%= link_to 'EVENT BRITE', events_path, class: "navbar-brand" %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <%= link_to 'Accueil', events_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Créer un event', new_event_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Participer', events_path, class: "nav-link" %>
+      </li>
+     
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+          aria-expanded="false">Profil</a>
+        <div class="dropdown-menu">
+          
+          <% if user_signed_in? %>
+          <%= link_to "Mon profil", user_path(current_user), class: "dropdown-item" %>
+          
+          <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "dropdown-item"%>
+         
+          <% else %>
+          <%= link_to "S'inscrire", new_user_registration_path, class: "dropdown-item" %>
+         
+          <%= link_to "Se connecter", new_user_session_path, class: "dropdown-item" %>
+         
+          <% end %> 
+        </div>
+      </li>
+    </ul>
+    
+  </div>
+</nav>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>The Evenbrides App - User</title>
+    </head>
+
+    <body>
+        <div class="container" style= "margin-bottom: 45px">
+            <div class="row">
+                <h1>Page Profil</h1>
+                <div class="col-sm-12 ">
+                    <h2 class="card-title "> Profil <%=@user.first_name%></h2>
+                    
+                    <%if @user.avatar.attached?%>
+                        <%= image_tag @user.avatar, alt: 'avatar' %>
+                    <%else%>
+                        <p>=== Il n'y a pas encore d'avatar lié à cet utilisateur ===</p>
+                    <%end%>
+
+                    <p>Prénom : <%=@user.first_name %></p>
+                    <p>Nom : <%=@user.last_name %></p>
+                    <p>Description : <%= @user.description %></p>
+                    <p>Email : <%= @user.email %></p>
+                    
+                </div>
+                <div class = mt->
+                    <h5>Changer d'avatar ?</h5>
+                    <%= form_tag user_avatars_path(@user), multipart: true do %>
+                        <%= file_field_tag :avatar %>
+                        <%= submit_tag "mettre à jour" %>
+                    <% end %>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="container" style= "margin-bottom: 25px">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Mes évènements à venir :</h4>
+                </div>
+                <div class="col-sm-12 ">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">Evénement</th>
+                            <th scope="col">Page de l'événément</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <% @user_events_attendances.each do |event| %>
+                                <% if event.start_date > Date.today  %>
+                                    <tr>
+                                        <td><%=event.title %></td>
+                                        <td><%= link_to 'Détail', event_path(event.id), class: 'btn btn-secondary bg-info' %></td>
+                                    </tr>
+                                    <tr>
+                                <% end %>
+                        <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <h4>Mes événements en tant qu'organisateur:</h4>
+                </div>
+                <div class="col-sm-12 ">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">Evénement</th>
+                            <th scope="col">Page de l'événément</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <% @user_events_admin.each do |event| %>
+                        <tr>
+                            <td><%=event.title %></td>
+                            <td><%= link_to "Voir plus", event_path(event.id) %></td>
+                        </tr>
+                        <tr>
+                        <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

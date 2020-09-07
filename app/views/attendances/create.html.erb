@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EvenbridesV1</title>
+      <%= csrf_meta_tags %>
+      <%= csp_meta_tag %>
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+      <script src="https://kit.fontawesome.com/46962466a1.js" crossorigin="anonymous"></script>
+
+<body>
+
+<div class="card">
+  <div class="card-header">
+    Récapitulatif d'achat
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Merci, votre paiement de <strong><%= Event.find(params[:event_id]).price %> € </strong>est validé !</h5>
+    <p class="card-text">Nous vous remercions de votre confiance.</p>
+
+    <div class="btn btn-primary">
+      <%= link_to "Accéder à l'Event", event_path(params[:event_id]) %>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+
+

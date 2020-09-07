@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Admin EvenBrides - Dashboard</title>
+
+</head>
+
+<body>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard Utilisateurs</h1>
+    </div>
+
+    <!-- Topbar Search -->
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+
+    <!-- Users Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Nombre d'inscrits</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"> 
+                                <%= @total_users %> 
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Tableau de pilotage</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Email</th>
+                    <th>Nombre d'évènements créés</th>
+                    <th>Administrateur</th>
+                    <th>Supprimer un utilisateur</th>
+                </tr>
+                </thead>
+                
+                    <% User.all.each do |user|%>
+                        <tr>
+                            <td><%= user.first_name %> <%= user.last_name %></td>
+                            <td><%= user.description %></td>
+                            <td><%= user.email %></td>
+                            <td><% user_events_count = 0 %>
+                                <% Event.all.each do |event| %>
+                                    <% user_events_count += 1 if event.admin == user %>
+                                <% end %>
+                                <%= user_events_count%>
+                            </td>
+                            <td><%= user.is_admin %> </td>
+                            <td><%= button_to "Supprime", admin_user_path(user), method: :delete, class: "btn btn-lg btn-danger btn-block h"  %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+             </table>
+        </div>
+    </div>
+    
+</body>
+</html>

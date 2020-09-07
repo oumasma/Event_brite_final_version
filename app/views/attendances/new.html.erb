@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>The Evenbrides App - Événement</title>
+</head>
+
+<body>
+	<%= form_tag event_attendances_path(params[:event_id]) do %>
+	  <article>
+	    <% if flash[:error].present? %>
+	      <div id="error_explanation">
+	        <p><%= flash[:error] %></p>
+	      </div>
+	    <% end %>
+	   	<div class="container" style= "margin-bottom: 45px">
+        <div class="row">
+          <div class="col-sm-12 ">
+              <h2 class="card-title"> Prix : <%= Event.find(params[:event_id]).price %> €</h2>
+          </div>
+        </div>
+
+		<div class="row">
+       		<div class="col-sm-12 ">
+				<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+					data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+					data-description="Achat Event"
+					data-amount="<%= Event.find(params[:event_id]).price*100 %> €"
+					data-locale="auto"></script>
+			</div>
+        </div>
+      </div>
+	  </article>
+
+	  
+	<% end %>
+
+</body>
+</html>
